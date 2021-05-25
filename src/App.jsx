@@ -12,23 +12,37 @@ function App() {
   const [loading, setLoading] = useState(false);
 
   function handleClick(e) {
+    console.log('Hello inside handleClick');
     e.preventDefault();
+    setResult('no-content');
     setLoading(true);
-    let data = document.getElementById('text').innerHTML;
+    let data = document.getElementById('text').value;
+
+    console.log('data', data);
 
     // TODO: send this data to elastic search
-
-    // TODO: grab the result from elastic
-    let results = null;
-    if (results) {
+    fetch('/check-fact', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        q: data
+      })
+    }).then(res => (
+      res.json()
+    )).then(results => {
+      console.log('results', results);
       setLoading(false);
-      setResult(results);
-    }
-    else {
-      setLoading(false);
-    }
-
+      if (results) {
+        setResult(results.result);
+      }
+    }).catch(err => {
+      console.log(err);
+    })
   }
+
+
   return (
     <div className='wrapper'>
       <Navbar bg="light" variant="light">
@@ -60,18 +74,18 @@ function App() {
           <Col xs={{ span: 12, order: 1 }} md={{ span: 6, order: 2 }}>
             <h5>See the results</h5>
             <div className='result-container'>
-            { loading ? (
-              <LoadingResult/>
-            ): (result ? ( result === 'no-content'? (
-              "Submit text to check the facts"
-            ):
-              <Row>
-                <Col>
-                  <Result results={result} />
-                </Col>
-             </Row>
-            ): "Sorry we didn't find any supportive document for this statement"
-            )}
+            { 
+              loading ? (
+                  <LoadingResult/>
+              ): (
+                  result ? ( result === 'no-content'? (
+                    "Submit text to check the facts"
+                    ): (
+                        <Result results={result} />
+                    )
+                  ): "Sorry we didn't find any supportive document for this statement"
+              )
+            }
             </div>
           </Col>
         </Row>
