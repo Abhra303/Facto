@@ -1,2 +1,47 @@
 @import "~bootstrap/scss/bootstrap";
 
+// body {
+//     min-height: 100vh;
+// }
+
+.wrapper{
+    background: #f4f7f6;
+    min-height:100vh;
+
+    .brand {
+        font-weight: 700;
+        opacity: 0.7;
+        font-family: monospace;
+        letter-spacing: 5px;
+    }
+    
+
+    #form {
+        margin-top: 45px;
+    }
+    .heading {
+        margin: 20px 10px;
+        color: #565a5e;
+        font-weight: 700;
+    }
+    .result-container {
+        overflow-y: auto;
+        border: 3px solid #b5b5ad;
+        height: 80%;
+        position:relative;
+    }
+    .form-label{
+        font-family: sans-serif;
+        opacity: 0.5;
+    }
+    @media only screen and (max-width: 767px) {
+
+        .heading {
+            font-size: 20px;
+        }
+        .result-container {
+            height: 135px;
+        }
+    }
+}
+
