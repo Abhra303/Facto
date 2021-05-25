@@ -1,9 +1,5 @@
 @import "~bootstrap/scss/bootstrap";
 
-// body {
-//     min-height: 100vh;
-// }
-
 .wrapper{
     background: #f4f7f6;
     min-height:100vh;
@@ -28,6 +24,7 @@
         overflow-y: auto;
         border: 3px solid #b5b5ad;
         height: 80%;
+        max-height: 400px;
         position:relative;
     }
     .form-label{
